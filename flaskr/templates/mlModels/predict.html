@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Передбачити результат{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+  <label for="title">Назва</label>
+  <input name="title" id="title"
+    value="{{model['title']}}" required disabled>
+  <label for="body">Опис</label>
+  <textarea name="body" id="body" disabled>{{model['body']}}</textarea>
+  <label for="body">Дані</label>
+  <input type="file" name="file">
+  <input type="submit" value="Передбачити">
+
+</form>
+<hr>
+{% endblock %}

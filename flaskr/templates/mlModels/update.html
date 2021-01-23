@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Редагувати "{{ model['title'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    <label for="title">Назва</label>
+    <input name="title" id="title"
+      value="{{ request.form['title'] or model['title'] }}" required>
+    <label for="body">Опис</label>
+    <textarea name="body" id="body">{{ request.form['body'] or model['body'] }}</textarea>
+    <label for="body">Інформація</label>
+    <input type="file" name="file">
+    <input type="submit" value="Зберегти">
+
+  </form>
+  <hr>
+  <form action="{{ url_for('mlModels.delete', id=model['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+{% endblock %}

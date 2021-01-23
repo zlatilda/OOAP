@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Редагувати параметри{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    <label for="title">Назва</label>
+    <input name="title" id="title"
+      value="{{model['title'] }}" required disabled>
+    <label for="model-attributes">Атрибути моделі</label>
+    <select name="model-attributes" id="model-attributes" multiple>
+      {% for model_attribute in model['column_names'] %}
+        <option>{{model_attribute['name']}}</option>
+      {% endfor %}
+    </select>
+    <label for="secret-attribute">Невідомий атрибут</label>
+    <select name="secret-attribute" id = "secret-attribute">
+      {% for model_attribute in model['column_names'] %}
+        <option>{{model_attribute['name']}}</option>
+      {% endfor %}
+    </select>
+    <label for="model-type">Тип моделі</label>
+    <select name="model-type" id = "model-type">
+      {% for name in types %}
+        <option>{{name}}</option>
+      {% endfor %}
+    </select>
+    <hr>
+    <input type="submit" value="Зберегти">
+
+  </form>
+{% endblock %}

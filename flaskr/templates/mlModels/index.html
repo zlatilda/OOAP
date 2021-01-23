@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Моделі машинного навчання{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('mlModels.create') }}">Нова</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for model in models %}
+    <article class="model">
+      <header>
+        <div>
+          <h1>{{ model['title'] }}</h1>
+          <div class="about"> {{ model['username'] }} {{ model['created'].strftime('%Y-%m-%d') }}</div>
+        </div>
+        {% if g.user['id'] == model['author_id'] %}
+          <a class="action" href="{{ url_for('mlModels.predict', id=model['id']) }}">Передбачити</a>
+          <a class="action" href="{{ url_for('mlModels.params', id=model['id']) }}">Параметри</a>
+          <a class="action" href="{{ url_for('mlModels.update', id=model['id']) }}">Редагувати</a>
+        {% endif %}
+      </header>
+      <p class="body">{{ model['body'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
