@@ -4,6 +4,7 @@ import click
 from flask import Flask
 from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
+import flask_monitoringdashboard as dashboard
 
 __version__ = (1, 0, 0, "dev")
 
@@ -12,6 +13,8 @@ alchemy_database = SQLAlchemy()
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__, instance_relative_config=True)
+    dashboard.config.init_from(file='./../config.cfg')
+    dashboard.bind(app)
 
     # some deploy systems set the database url in the environ
     db_url = os.environ.get("DATABASE_URL")
