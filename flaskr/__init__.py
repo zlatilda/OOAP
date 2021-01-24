@@ -7,8 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 __version__ = (1, 0, 0, "dev")
 
-db = SQLAlchemy()
-
+alchemy_database = SQLAlchemy()
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
@@ -41,7 +40,7 @@ def create_app(test_config=None):
         app.config.update(test_config)
 
     # initialize Flask-SQLAlchemy and the init-db command
-    db.init_app(app)
+    alchemy_database.init_app(app)
     app.cli.add_command(init_db_command)
 
     # apply the blueprints to the app
@@ -57,8 +56,8 @@ def create_app(test_config=None):
 
 
 def init_db():
-    db.drop_all()
-    db.create_all()
+    alchemy_database.drop_all()
+    alchemy_database.create_all()
 
 
 @click.command("init-db")

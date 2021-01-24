@@ -2,8 +2,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from werkzeug.security import check_password_hash
 from werkzeug.security import generate_password_hash
 
-from flaskr import db
-
+from flaskr import alchemy_database as db
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

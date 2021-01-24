@@ -1,9 +1,8 @@
 from flask import url_for
 
-from flaskr import db
+from flaskr import alchemy_database as db
 from flaskr.auth.models import User
 from flaskr.mlModels.modelType import modelType
-from enum import Enum
 
 class ColumnName(db.Model):
     id = db.Column(db.Integer, primary_key=True)
