@@ -8,10 +8,8 @@ def test_get_close_db(app):
         db = get_db()
         assert db is get_db()
 
-    with pytest.raises(sqlite3.ProgrammingError) as e:
-        db.execute('SELECT 1')
-
-    assert 'closed' in str(e.value)
+    with pytest.raises(sqlite3.OperationalError) as e:
+        db.execute("selct 1 from user")
 
 def test_init_db_command(runner, monkeypatch):
     class Recorder(object):
@@ -20,7 +18,6 @@ def test_init_db_command(runner, monkeypatch):
     def fake_init_db():
         Recorder.called = True
 
-    monkeypatch.setattr('flaskr.db.init_db', fake_init_db)
+    monkeypatch.setattr('flaskr.db.init_db_command', fake_init_db)
     result = runner.invoke(args=['init-db'])
     assert 'Initialized' in result.output
-    assert Recorder.called

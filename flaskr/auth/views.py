@@ -61,7 +61,7 @@ def register():
             db.session.add(User(username=username, password=password))
             db.session.commit()
             return redirect(url_for("auth.login"))
-
+        print("Error", error)
         flash(error)
 
     return render_template("auth/register.html")
@@ -85,8 +85,9 @@ def login():
             # store the user id in a new session and return to the index
             session.clear()
             session["user_id"] = user.id
+            print(user.id)
             return redirect(url_for("index"))
-
+        print(error)
         flash(error)
 
     return render_template("auth/login.html")
